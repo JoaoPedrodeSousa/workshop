@@ -5,10 +5,7 @@ import com.project.workshopmongo.dto.UserDTO;
 import com.project.workshopmongo.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -36,5 +33,13 @@ public class UserResource {
         UserDTO userDTO = new UserDTO(user);
 
         return ResponseEntity.ok().body(userDTO);
+    }
+
+    @RequestMapping(method = RequestMethod.POST)
+    public ResponseEntity<Void> insert(@RequestBody UserDTO objDto){
+        User obj = userService.fromDTO(objDto);
+        obj = userService.insert(obj);
+
+        return ResponseEntity.ok().build();
     }
 }
